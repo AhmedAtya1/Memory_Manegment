@@ -1,3 +1,3 @@
-test=input()
-print(test)
+
+print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
 
