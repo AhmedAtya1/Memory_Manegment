@@ -5,22 +5,22 @@ from DisplayMem import displayMem
 from Process import process
 from Table import table
 x=Tk()
-mem = memoryManager()
+list_segments=[]
 for i in range(10):
     a=segment()
-    a.name="seg"+str(i)
-    a.size=i+1
-    mem.list_segments.append(a)
-for i in range(len(mem.list_segments)):
+    a.setName("seg"+str(i))
+    a.setSize(i+1)
+    list_segments.append(a)
+for i in range(len(list_segments)):
     if i==0:
-        mem.list_segments[i].start=0
-        mem.list_segments[i].end = mem.list_segments[i].start+mem.list_segments[i].size
+        list_segments[i].setStartingAddress(0)
+        list_segments[i].setEndingAddress( list_segments[i].getStartingAddress()+list_segments[i].getSize())
     else:
-        mem.list_segments[i].start=mem.list_segments[i-1].end
-        mem.list_segments[i].end = mem.list_segments[i].start + mem.list_segments[i].size
+        list_segments[i].setStartingAddress(list_segments[i-1].getEndingAddress())
+        list_segments[i].setEndingAddress( list_segments[i].getStartingAddress() + list_segments[i].getSize())
 mem_display=displayMem()
-mem_display.drawMem(x,mem.list_segments)
+mem_display.drawMem(x,list_segments)
 table=table()
-table.drawTable(mem.list_segments)
+table.drawTable(list_segments)
 
 x.mainloop()
