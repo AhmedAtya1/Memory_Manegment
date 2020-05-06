@@ -1,6 +1,7 @@
-from Segment import segment
-
 class process :
-    list_segement=[]
-    name=''
-    size=0
+    def __init__(self,name= '',listOfsegments=[],state='',noOfSegments=0):
+        self.__name = name
+        self.__listOfSegments=listOfsegments
+        self.__state=state
+        self.__noOfsegments=noOfSegments
+
