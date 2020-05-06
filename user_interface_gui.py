@@ -36,8 +36,8 @@ class interface :
     def str_hole(self):
         self.add_hole_b["state"] = "normal"
         self.ok["state"] = "normal"
-        hole_start_address= int(self.hole_start_entry.get())
-        hole_size=int( self.hole_size_entry.get())
+        hole_start_address= float(self.hole_start_entry.get())
+        hole_size=float( self.hole_size_entry.get())
         # 5od ma3lomat l hole
         self.hole_frame.pack_forget()
         self.hole_frame.destroy()
