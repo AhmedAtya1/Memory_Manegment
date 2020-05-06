@@ -7,11 +7,13 @@ class running :
         self.mem_frame.pack(side=RIGHT)
         self.add_process_b = Button(self.left_frame, text=" allocate new process ", command=self.add_process)
         self.add_process_b.grid(row=0, column=0)
-        self.del_process_b = Button(self.left_frame, text=" deallocate new process ", command=self.del_process)
+        self.del_process_b = Button(self.left_frame, text=" deallocate process ", command=self.del_process)
         self.del_process_b.grid(row=0, column=1)
         self.table_b = Button(self.left_frame, text=" table ", command=self.show_table)
         self.table_b.grid(row=0, column=2)
         # draw mem
+        hhh="hhhh"
+
 
 
 
@@ -58,6 +60,7 @@ class running :
 
 
     def str_seg(self):
+        hhhh="hhhh"
         name_of_seg = self.segs_name_entry.get()
         size_of_seg = float(self.segs_sizee_entry.get())
         #5od ma3lomat l seg
@@ -69,7 +72,9 @@ class running :
 
 
 
-    def show_table(self): pass
+    def show_table(self):
+        hhh="hhh"
+
 
     def del_process(self): pass
 
