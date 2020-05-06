@@ -12,7 +12,7 @@ class running :
         self.table_b = Button(self.left_frame, text=" table ", command=self.show_table)
         self.table_b.grid(row=0, column=2)
         # draw mem
-        hhh="hhhh"
+
 
 
 
@@ -58,7 +58,7 @@ class running :
             # update and draw
 
     def str_seg(self):
-        hhhh="hhhh"
+
         name_of_seg = self.segs_name_entry.get()
         size_of_seg = float(self.segs_sizee_entry.get())
         #5od ma3lomat l seg
@@ -71,7 +71,7 @@ class running :
 
 
     def show_table(self):
-        hhh="hhh"
+        pass
 
 
     def del_process(self): pass
