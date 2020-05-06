@@ -54,8 +54,10 @@ class running :
             self.seg_b.grid(row=2, columnspan=2)
 
         else :
-            pass
-            # update and draw
+            # update and draw flag
+            flag = FALSE
+            if flag is TRUE : pass
+
 
     def str_seg(self):
 
