@@ -1,11 +1,16 @@
 from Memory import memory
-class memoryManager :
-    def __init__(self,mem=memory()):
-        self.__mem=mem
+class memoryManager(memory) :
+    #memory class may be deleted
     def setSize(self,size):
-        self.__mem.setSize(size)
+        self.__memorySize=size
     def printSize(self):
-        print(self.__mem.getSize())
+        print(self.__memorySize)
+    def addHole(self,startingAddress,size):
+        d=1
+    def getList(self):
+        return self.__listOfAllPartitions
+
+
 
 
 

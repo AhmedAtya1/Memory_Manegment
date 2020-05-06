@@ -1,4 +1,4 @@
 from MemoryManager import memoryManager
 A=memoryManager()
-A.setSize(5)
+A.setSize(8)
 A.printSize()
