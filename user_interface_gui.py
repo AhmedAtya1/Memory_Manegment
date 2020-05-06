@@ -1,8 +1,10 @@
 from tkinter import *
+from after_run_gui import running
 class interface :
     def __init__(self,master):
+        self.f2=Frame(master)
         self.f=Frame(master)
-        self.f.pack(side=LEFT)
+        self.f.pack()
         self.mem_size=Label(self.f,text=" memory size ")
         self.mem_size.grid(row=0,column=0)
         self.mem_entry=Entry(self.f)
@@ -11,10 +13,13 @@ class interface :
         self.add_hole_b.grid(row=1,columnspan=2)
         self.ok = Button(self.f, text=" run ", command=self.run)
         self.ok.grid(row=3, columnspan=2)
+        self.reset_b = Button(master, text=" reset ", command=self.reset)
+        self.reset_b.pack(side=BOTTOM)
 
 
     def add_hole(self):
         self.add_hole_b["state"] = "disabled"
+        self.ok["state"] = "disabled"
         self.hole_frame =Frame(self.f)
         self.hole_frame.grid(row=2)
         self.hole_start = Label(self.hole_frame, text=" hole starting address ")
@@ -30,10 +35,20 @@ class interface :
 
     def str_hole(self):
         self.add_hole_b["state"] = "normal"
+        self.ok["state"] = "normal"
         hole_start_address= int(self.hole_start_entry.get())
         hole_size=int( self.hole_size_entry.get())
         # 5od ma3lomat l hole
         self.hole_frame.pack_forget()
         self.hole_frame.destroy()
-    def run(self): pass
+
+
+    def run(self):
+        self.f.pack_forget()
+        self.f.destroy()
+        self.f2.pack()
+        r=running(self.f2)
+
+
+    def reset(self): pass
 
