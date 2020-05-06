@@ -13,7 +13,7 @@ class segment :
         return self.__name
     def setStartingAddress(self,start):    #to be
         self.__startAddress=start
-    def getStartingAddress(self, start):
+    def getStartingAddress(self):
         return  self.__startAddress
     def setSize(self,size):      #to be
         self.__size=size
