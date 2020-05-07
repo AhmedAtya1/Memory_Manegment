@@ -36,11 +36,16 @@ class running :
         self.no_of_segment.grid(row=0, column=0)
         self.no_of_segment_entry = Entry(self.process_frame)
         self.no_of_segment_entry.grid(row=0, column=1)
+        self.fb = Label(self.process_frame, text=" type(first/best) ")
+        self.fb.grid(row=1, column=0)
+        self.fb_entry = Entry(self.process_frame)
+        self.fb_entry.grid(row=1, column=1)
         self.no_of_segment_b = Button(self.process_frame, text=" ok ", command=self.fill_process)
-        self.no_of_segment_b.grid(row=0, column=3)
+        self.no_of_segment_b.grid(row=2, columnspan=2)
 
     def fill_process(self):
         self.num_of_seg=int(self.no_of_segment_entry.get())
+        self.firstorbest=self.fb_entry.get()
         self.process_frame.pack_forget()
         self.process_frame.destroy()
         self.startseg()
@@ -80,7 +85,7 @@ class running :
 
     def str_seg(self):
         name_of_seg = self.segs_name_entry.get()
-        size_of_seg = float(self.segs_sizee_entry.get())
+        size_of_seg = int(self.segs_sizee_entry.get())
         #5od ma3lomat l seg
         self.segs_frame.pack_forget()
         self.segs_frame.destroy()
@@ -105,7 +110,7 @@ class running :
         self.del_process_b["state"] = "normal"
         self.table_b["state"] = "normal"
         if self.full_flag == TRUE:  self.allocate_binding["state"] = "normal"
-        process_number=int(self.enter_process_forTable.get())
+        process_namee=self.enter_process_forTable.get()
         # self.table = table()
         # table.drawTable(listofsegments_of_certainProcess)    self.enter_process_forTable.segmentlist
         # show the table (missing object)
@@ -119,7 +124,7 @@ class running :
         self.allocate_binding["state"] = "disabled"
         self.del_process_frame = Frame(self.left_frame)
         self.del_process_frame.grid(row=1)
-        process_no = Label(self.del_process_frame, text=" Enter Segment name ")
+        process_no = Label(self.del_process_frame, text=" Enter process name ")
         process_no.grid(row=1, column=0)
         ok_button = Button(self.del_process_frame, text="OK", command=self.delete_frame_update_memDiagram)
         ok_button.grid(row=2, column=3)
@@ -131,7 +136,7 @@ class running :
         self.del_process_b["state"] = "normal"
         self.table_b["state"] = "normal"
         if self.full_flag == TRUE:  self.allocate_binding["state"] = "normal"
-        process_number = int(self.enter_process_for_delete.get())
+        process_namee = self.enter_process_for_delete.get()
         # m7mod hydeny fn a3ml beha de allocation
         self.del_process_frame.pack_forget()
         self.del_process_frame.destroy()
