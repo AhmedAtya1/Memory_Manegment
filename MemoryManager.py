@@ -25,7 +25,8 @@ class memoryManager:
         newSeg=segment('hole','none',len(self.__listOfHoles),'hole',startingAddress,size,startingAddress+size-1)
         self.__listOfHoles.append(newSeg)
     def displayOldProcess(self,startingAddress,size):
-        newSeg=segment('oldProcess'+str(self.__oldProcessesNo),'none',len(self.__listOfHoles),'oldProcess',startingAddress,size,startingAddress+size-1)
+        name='oldProcess'+str(self.__oldProcessesNo)
+        newSeg=segment(name,name,len(self.__listOfHoles),'oldProcess',startingAddress,size,startingAddress+size-1)
         self.__listOfAllPartitions.append(newSeg)
         self.__oldProcessesNo+=1
     def divideMem(self):
@@ -114,68 +115,54 @@ class memoryManager:
                         currentListOfSeg[i].setStartingAddress(self.__listOfHoles[j].getStartingAddress())
                         currentListOfSeg[i].setEndingAddress(self.__listOfHoles[j].getEndingAddress())
                         self.__listOfAllPartitions.append(currentListOfSeg[i])
-                        self.removeSegment(self.__listOfHoles[j].getStartingAddress())
+                        self.removeSegment(self.__listOfHoles[j].getStartingAddress(),self.__listOfAllPartitions)
                         del self.__listOfHoles[j]
                         break
             self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
             return True
 
-    def addProcessByFirstFit(self):
-        if self.checkIfFitted()==False:
-            #print(11)
-            return False
 
 
-        else:
-            self.__listOfHoles.sort(key=operator.attrgetter('_segment__startAddress'))
-            currentListOfSeg=self.__listOfAllProcesses[-1].getListOfSegments()
-            for i in range(len(currentListOfSeg)):
-                for j in range(len(self.__listOfHoles)):
-                    if currentListOfSeg[i].getSize() < self.__listOfHoles[j].getSize():
-                        currentListOfSeg[i].setStartingAddress(self.__listOfHoles[j].getStartingAddress())
-                        currentListOfSeg[i].setEndingAddress(currentListOfSeg[i].getStartingAddress()+currentListOfSeg[i].getSize()-1)
-                        self.__listOfAllPartitions.append(currentListOfSeg[i])
-                        self.__listOfHoles[j].setStartingAddress(currentListOfSeg[i].getStartingAddress()+currentListOfSeg[i].getSize())
-                        self.__listOfHoles[j].setSize(self.__listOfHoles[j].getEndingAddress()-self.__listOfHoles[j].getStartingAddress()+1)
-                        break
-                    elif currentListOfSeg[i].getSize() == self.__listOfHoles[j].getSize():
-                        currentListOfSeg[i].setStartingAddress(self.__listOfHoles[j].getStartingAddress())
-                        currentListOfSeg[i].setEndingAddress(self.__listOfHoles[j].getEndingAddress())
-                        self.__listOfAllPartitions.append(currentListOfSeg[i])
-                        self.removeSegment(self.__listOfHoles[j].getStartingAddress())
-                        break
-            self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
-            return True
 
-
-    def removeSegment(self,start):
-        for i in range(len(self.__listOfAllPartitions)):
-            if self.__listOfAllPartitions[i].getStartingAddress()==start:
-                del self.__listOfAllPartitions[i]
+    def removeSegment(self,start,list):
+        for i in range(len(list)):
+            if list[i].getStartingAddress()==start:
+                del list[i]
                 break
+    def deAllocate(self,name):
+        self.replaceWithHoles(name)
+        self.mergeHoles()
+        #self.printList(self.__listOfHoles)
+
+    def replaceWithHoles(self,name):
+        for i in range(len(self.__listOfAllPartitions)):
+                if self.__listOfAllPartitions[i].getRelatedProcess()==name:
+                    self.__listOfAllPartitions[i].setName('hole')
+                    self.__listOfAllPartitions[i].setRelatedProcess('none')
+                    self.__listOfAllPartitions[i].setType('hole')
+                    self.__listOfHoles.append(self.__listOfAllPartitions[i])
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def mergeHoles(self):
+        for i in range(len(self.__listOfAllPartitions)-1):
+            if i==(len(self.__listOfAllPartitions)-1):
+                break
+            if self.__listOfAllPartitions[i].getName()=='hole':
+                while self.__listOfAllPartitions[i+1].getName()=='hole':
+                    start=self.__listOfAllPartitions[i].getStartingAddress()
+                    end=self.__listOfAllPartitions[i+1].getEndingAddress()
+                    size=self.__listOfAllPartitions[i].getSize()+self.__listOfAllPartitions[i+1].getSize()
+                    newHole=segment('hole','none',-1,'hole',start,size,end)
+                    secondStart=self.__listOfAllPartitions[i+1].getStartingAddress()
+                    self.removeSegment(start,self.__listOfAllPartitions)
+                    self.removeSegment(start,self.__listOfHoles)
+                    self.removeSegment(secondStart, self.__listOfAllPartitions)
+                    self.removeSegment(secondStart, self.__listOfHoles)
+                    self.__listOfHoles.append(newHole)
+                    self.__listOfAllPartitions.append(newHole)
+                    self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
+                    #self.print()
 
     def print(self):
         self.printList(self.__listOfAllPartitions)

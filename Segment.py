@@ -2,7 +2,7 @@ class segment :
     def __init__(self,name='',relatedProcess='none',number=-1,type='',startAddress=-1,size=0,endAddress=-1):
         self.__name = name
         self.__relatedProcess=relatedProcess
-        self.__number=number
+        self.__number=number #########
         self.__type=type
         self.__startAddress=startAddress
         self.__size=size
@@ -32,6 +32,10 @@ class segment :
         self.__state=state
     def getState(self):
         return self.__state
+    def setRelatedProcess(self,name):
+        self.__relatedProcess=name
+    def getRelatedProcess(self):
+        return self.__relatedProcess
 
 
 
