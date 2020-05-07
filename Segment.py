@@ -7,6 +7,7 @@ class segment :
         self.__startAddress=startAddress
         self.__size=size
         self.__endAddress=endAddress
+        self.__state='none'
     def setName(self,name):  #to be
         self.__name = name
     def getName(self):
@@ -27,6 +28,10 @@ class segment :
         self.__type = type
     def getType(self):
         return self.__type
+    def setState(self,state):
+        self.__state=state
+    def getState(self):
+        return self.__state
 
 
 
