@@ -90,6 +90,7 @@ class memoryManager:
         if  self.__firstFitFlag==1:
             self.__listOfHoles.sort(key=operator.attrgetter('_segment__startAddress'))
         else:
+            self.__listOfHoles.sort(key=operator.attrgetter('_segment__startAddress'))
             self.__listOfHoles.sort(key=operator.attrgetter('_segment__size'))
             #print(self.__listOfHoles[0].getSize())
             #print(self.__listOfHoles[1].getSize())
@@ -163,6 +164,8 @@ class memoryManager:
                     self.__listOfAllPartitions.append(newHole)
                     self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
                     #self.print()
+    def addBinding(self):
+        return self.addProcess()
 
     def print(self):
         self.printList(self.__listOfAllPartitions)
