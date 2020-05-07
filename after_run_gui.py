@@ -3,8 +3,9 @@ import tkinter.messagebox
 from DisplayMem import displayMem
 from MemoryManager import memoryManager
 from Table import table
+from MemoryManager import memoryManager
 class running :
-    def __init__(self, master):
+    def __init__(self, master,mm):
         self.left_frame=Frame(master)
         self.mem_frame=Frame(master)
         self.left_frame.pack(side=LEFT)
@@ -65,8 +66,8 @@ class running :
 
         else :
             # send process
-            full_flag = TRUE
-            if full_flag == FALSE :
+            self.full_flag = TRUE
+            if self.full_flag == FALSE :
                 # drawmem
                 pass
             else :
@@ -149,8 +150,8 @@ class running :
 
     def binding(self):
         # call 7oda bind func
-        full_flag = FALSE
-        if full_flag == FALSE:
+        self.full_flag = FALSE
+        if self.full_flag == FALSE:
             # drawmem
             self.add_process_b["state"] = "normal"
             self.allocate_binding["state"] = "disabled"

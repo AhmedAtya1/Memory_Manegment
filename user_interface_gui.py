@@ -1,7 +1,9 @@
 from tkinter import *
 from after_run_gui import running
+from MemoryManager import memoryManager
 class interface :
     def __init__(self,master):
+        self.mm=memoryManager()
         self.f2=Frame(master)
         self.f=Frame(master)
         self.f.pack()
@@ -38,16 +40,17 @@ class interface :
         self.ok["state"] = "normal"
         hole_start_address= float(self.hole_start_entry.get())
         hole_size=float( self.hole_size_entry.get())
-        # 5od ma3lomat l hole
+        self.mm.addHole(hole_start_address,hole_size)
         self.hole_frame.pack_forget()
         self.hole_frame.destroy()
 
 
     def run(self):
+        self.mm.setSize(float(self.mem_entry.get()))
         self.f.pack_forget()
         self.f.destroy()
         self.f2.pack()
-        r=running(self.f2)
+        r=running(self.f2,self.mm)
 
 
     def reset(self): pass
