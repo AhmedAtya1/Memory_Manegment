@@ -30,8 +30,11 @@ class displayMem:
             if i.getName() == "hole":
                 e = Label(frame, text=s, borderwidth=1, relief="solid", width=25, height=2 + self.reshape(i.getSize()),
                           bg="white", font="arial 10 italic")
+            elif i.getName()[0:10]=="oldProcess":
+                e = Label(frame, text=s, borderwidth=1, relief="solid", width=25, height=2 + self.reshape(i.getSize()),
+                          bg="grey", font="arial 10 italic")
             else:
-                e = Label(frame, text=s, borderwidth=1, relief="solid", width=25 , height= 2 + self.reshape(i.getSize()),bg="grey",font="arial 10 italic" )
+                e = Label(frame, text=s, borderwidth=1, relief="solid", width=25 , height= 2 + self.reshape(i.getSize()),bg="green",font="arial 10 italic" )
             e.pack(side="top")
             if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
                 x = x + 1
