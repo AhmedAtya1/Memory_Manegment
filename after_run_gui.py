@@ -19,9 +19,9 @@ class running :
         self.allocate_binding = Button(self.left_frame, text="  Allocate Binding Process ", command=self.binding)
         self.allocate_binding.grid(row=0, column=3)
         self.allocate_binding["state"] = "disabled"
-        #mem=displayMem()
-        #manger=memoryManager()
-        #mem.drawMem(self.mem_frame,manger.getList())
+        mem=displayMem()
+        mem.drawMem(self.mem_frame,mm.getListOfAllPartitions())
+
 
 
 
