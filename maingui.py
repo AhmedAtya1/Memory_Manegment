@@ -11,6 +11,6 @@ def reset():
     f = Frame(root)
     f.pack()
     i = interface(f)
-reset_b = Button(root, text=" reset ", command=reset)
+reset_b = Button(root, text=" Reset ", command=reset,width=5 , height= 1,font="arial 15 italic")
 reset_b.pack(side=BOTTOM)
 root.mainloop()

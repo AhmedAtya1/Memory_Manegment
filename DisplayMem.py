@@ -13,7 +13,7 @@ class displayMem:
     def drawMem(self,Master,List_of_Sigments=[]):
 
         def myfunction(event):
-            canvas.configure(scrollregion=canvas.bbox("all"), width=250, height=500)
+            canvas.configure(scrollregion=canvas.bbox("all"), width=250, height=750)
 
         canvas = Canvas(Master)
         frame = Frame(canvas)
