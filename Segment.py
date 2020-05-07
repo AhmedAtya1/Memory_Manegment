@@ -1,5 +1,5 @@
 class segment :
-    def __init__(self,name='',relatedProcess='',number=0,type='',startAddress=-1,size=0,endAddress=-1):
+    def __init__(self,name='',relatedProcess='none',number=-1,type='',startAddress=-1,size=0,endAddress=-1):
         self.__name = name
         self.__relatedProcess=relatedProcess
         self.__number=number
