@@ -5,11 +5,12 @@ from MemoryManager import memoryManager
 from Table import table
 from MemoryManager import memoryManager
 class running :
-    def __init__(self, master,mmm):
+    def __init__(self, masterr,mmm):
         self.mm=mmm
+        self.master=masterr
         self.full_flag=False
-        self.left_frame=Frame(master)
-        self.mem_frame=Frame(master)
+        self.left_frame=Frame(self.master)
+        self.mem_frame=Frame(self.master)
         self.left_frame.pack(side=LEFT)
         self.mem_frame.pack(side=RIGHT)
         space=Label(self.left_frame,text="\t \t \t ")
