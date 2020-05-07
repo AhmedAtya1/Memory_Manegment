@@ -25,9 +25,6 @@ class running :
         mem=displayMem()
         mem.drawMem(self.mem_frame,mm.getListOfAllPartitions())
 
-
-
-
     def add_process(self):
         self.add_process_b["state"] = "disabled"
         self.table_b["state"] = "disabled"
@@ -48,7 +45,6 @@ class running :
         self.process_frame.destroy()
         self.startseg()
 
-
     def startseg(self):
         if self.num_of_seg > 0 :
             self.num_of_seg = self.num_of_seg -1
@@ -64,7 +60,6 @@ class running :
             self.segs_sizee_entry.grid(row=1, column=1)
             self.seg_b = Button(self.segs_frame, text=" ok  ", command=self.str_seg)
             self.seg_b.grid(row=2, columnspan=2)
-
         else :
             # send process and set full flag
             self.add_process_b["state"] = "normal"
@@ -78,29 +73,18 @@ class running :
             else :
                 self.biind()
 
-
-
     def biind(self):
-        tkinter.messagebox.showinfo("error",
-                                    "the memory isn't empty enough to add this process now , please deallocate any processes")
+        tkinter.messagebox.showinfo("error", "the memory isn't empty enough to add this process now , please deallocate any processes")
         self.allocate_binding["state"] = "normal"
         self.add_process_b["state"] = "disabled"
 
-
-
-
     def str_seg(self):
-
         name_of_seg = self.segs_name_entry.get()
         size_of_seg = float(self.segs_sizee_entry.get())
         #5od ma3lomat l seg
         self.segs_frame.pack_forget()
         self.segs_frame.destroy()
         self.startseg()
-
-
-
-
 
     def show_table(self):
         self.add_process_b["state"] = "disabled"
@@ -116,7 +100,6 @@ class running :
         self.enter_process_forTable=Entry(self.table_frame)
         self.enter_process_forTable.grid(row=1,column=1)
 
-
     def delete_frame_show_table(self):
         if self.full_flag != TRUE: self.add_process_b["state"] = "normal"
         self.del_process_b["state"] = "normal"
@@ -128,7 +111,6 @@ class running :
         # show the table (missing object)
         self.table_frame.pack_forget()
         self.table_frame.destroy()
-
 
     def del_process(self):
         self.add_process_b["state"] = "disabled"
@@ -154,9 +136,6 @@ class running :
         self.del_process_frame.pack_forget()
         self.del_process_frame.destroy()
 
-
-
-
     def binding(self):
         # call 7oda bind func
         self.full_flag = FALSE
@@ -166,6 +145,3 @@ class running :
             self.allocate_binding["state"] = "disabled"
         else:
             self.biind()
-
-
-
