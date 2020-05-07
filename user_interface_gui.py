@@ -47,6 +47,7 @@ class interface :
 
     def run(self):
         self.mm.setSize(float(self.mem_entry.get()))
+        self.mm.divideMem()
         self.f.pack_forget()
         self.f.destroy()
         self.f2.pack()
