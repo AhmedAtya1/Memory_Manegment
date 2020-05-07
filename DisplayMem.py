@@ -13,7 +13,7 @@ class displayMem:
     def drawMem(self,Master,List_of_Sigments=[]):
 
         def myfunction(event):
-            canvas.configure(scrollregion=canvas.bbox("all"), width=250, height=2000)
+            canvas.configure(scrollregion=canvas.bbox("all"), width=250, height=500)
 
         canvas = Canvas(Master)
         frame = Frame(canvas)
@@ -22,8 +22,8 @@ class displayMem:
         canvas.create_window((0, 0), window=frame, anchor='nw')
         frame.bind("<Configure>", myfunction)
 
-        myscrollbar.pack(side=LEFT)
-        canvas.pack(side=LEFT)
+        myscrollbar.pack(side=RIGHT,fill="y")
+        canvas.pack(side=RIGHT)
         x = 0
         for i in List_of_Sigments:
             s = i.getName() + " " + " ( "+str(i.getStartingAddress())+" : " + str(i.getStartingAddress() + i.getSize()) + " )"
