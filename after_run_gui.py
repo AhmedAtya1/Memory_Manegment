@@ -6,6 +6,7 @@ from Table import table
 from MemoryManager import memoryManager
 class running :
     def __init__(self, master,mm):
+        self.full_flag=FALSE
         self.left_frame=Frame(master)
         self.mem_frame=Frame(master)
         self.left_frame.pack(side=LEFT)
@@ -24,13 +25,11 @@ class running :
         mem=displayMem()
         mem.drawMem(self.mem_frame,mm.getListOfAllPartitions())
 
-
-
-
     def add_process(self):
         self.add_process_b["state"] = "disabled"
         self.table_b["state"] = "disabled"
         self.del_process_b["state"] = "disabled"
+        self.allocate_binding["state"] = "disabled"
         self.process_frame=Frame(self.left_frame)
         self.process_frame.grid(row=1)
         self.no_of_segment = Label(self.process_frame, text=" no of segment ")
@@ -41,14 +40,10 @@ class running :
         self.no_of_segment_b.grid(row=0, column=3)
 
     def fill_process(self):
-        self.add_process_b["state"] = "normal"
-        self.del_process_b["state"] = "normal"
-        self.table_b["state"] = "normal"
         self.num_of_seg=int(self.no_of_segment_entry.get())
         self.process_frame.pack_forget()
         self.process_frame.destroy()
         self.startseg()
-
 
     def startseg(self):
         if self.num_of_seg > 0 :
@@ -65,29 +60,25 @@ class running :
             self.segs_sizee_entry.grid(row=1, column=1)
             self.seg_b = Button(self.segs_frame, text=" ok  ", command=self.str_seg)
             self.seg_b.grid(row=2, columnspan=2)
-
         else :
-            # send process
-            self.full_flag = TRUE
+            # send process and set full flag
+            self.add_process_b["state"] = "normal"
+            self.del_process_b["state"] = "normal"
+            self.table_b["state"] = "normal"
+            if self.full_flag == TRUE:  self.allocate_binding["state"] = "normal"
+            self.full_flag = FALSE
             if self.full_flag == FALSE :
                 # drawmem
                 pass
             else :
                 self.biind()
 
-
-
     def biind(self):
-        tkinter.messagebox.showinfo("error",
-                                    "the memory isn't empty enough to add this process now , please deallocate any processes")
+        tkinter.messagebox.showinfo("error", "the memory isn't empty enough to add this process now , please deallocate any processes")
         self.allocate_binding["state"] = "normal"
         self.add_process_b["state"] = "disabled"
 
-
-
-
     def str_seg(self):
-
         name_of_seg = self.segs_name_entry.get()
         size_of_seg = float(self.segs_sizee_entry.get())
         #5od ma3lomat l seg
@@ -95,14 +86,11 @@ class running :
         self.segs_frame.destroy()
         self.startseg()
 
-
-
-
-
     def show_table(self):
         self.add_process_b["state"] = "disabled"
         self.del_process_b["state"] = "disabled"
         self.table_b["state"] = "disabled"
+        self.allocate_binding["state"] = "disabled"
         self.table_frame = Frame(self.left_frame)
         self.table_frame.grid(row=1)
         process_number = Label(self.table_frame, text=" Enter process name ")
@@ -112,11 +100,11 @@ class running :
         self.enter_process_forTable=Entry(self.table_frame)
         self.enter_process_forTable.grid(row=1,column=1)
 
-
     def delete_frame_show_table(self):
-        self.add_process_b["state"] = "normal"
+        if self.full_flag != TRUE: self.add_process_b["state"] = "normal"
         self.del_process_b["state"] = "normal"
         self.table_b["state"] = "normal"
+        if self.full_flag == TRUE:  self.allocate_binding["state"] = "normal"
         process_number=int(self.enter_process_forTable.get())
         # self.table = table()
         # table.drawTable(listofsegments_of_certainProcess)    self.enter_process_forTable.segmentlist
@@ -124,11 +112,11 @@ class running :
         self.table_frame.pack_forget()
         self.table_frame.destroy()
 
-
     def del_process(self):
         self.add_process_b["state"] = "disabled"
         self.del_process_b["state"] = "disabled"
         self.table_b["state"] = "disabled"
+        self.allocate_binding["state"] = "disabled"
         self.del_process_frame = Frame(self.left_frame)
         self.del_process_frame.grid(row=1)
         process_no = Label(self.del_process_frame, text=" Enter Segment name ")
@@ -139,16 +127,14 @@ class running :
         self.enter_process_for_delete.grid(row=1, column=1)
 
     def delete_frame_update_memDiagram(self):
-        self.add_process_b["state"] = "normal"
+        if self.full_flag != TRUE: self.add_process_b["state"] = "normal"
         self.del_process_b["state"] = "normal"
         self.table_b["state"] = "normal"
+        if self.full_flag == TRUE:  self.allocate_binding["state"] = "normal"
         process_number = int(self.enter_process_for_delete.get())
         # m7mod hydeny fn a3ml beha de allocation
         self.del_process_frame.pack_forget()
         self.del_process_frame.destroy()
-
-
-
 
     def binding(self):
         # call 7oda bind func
@@ -159,6 +145,3 @@ class running :
             self.allocate_binding["state"] = "disabled"
         else:
             self.biind()
-
-
-

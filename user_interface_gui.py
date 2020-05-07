@@ -15,9 +15,6 @@ class interface :
         self.add_hole_b.grid(row=1,columnspan=2)
         self.ok = Button(self.f, text=" run ", command=self.run)
         self.ok.grid(row=3, columnspan=2)
-        self.reset_b = Button(master, text=" reset ", command=self.reset)
-        self.reset_b.pack(side=BOTTOM)
-
 
     def add_hole(self):
         self.add_hole_b["state"] = "disabled"
@@ -44,7 +41,6 @@ class interface :
         self.hole_frame.pack_forget()
         self.hole_frame.destroy()
 
-
     def run(self):
         self.mm.setSize(float(self.mem_entry.get()))
         self.mm.divideMem()
@@ -52,7 +48,3 @@ class interface :
         self.f.destroy()
         self.f2.pack()
         r=running(self.f2,self.mm)
-
-
-    def reset(self): pass
-
