@@ -48,7 +48,7 @@ class memoryManager:
 
     def printSize(self):
         print(self.__memorySize)
-    def getList(self):
+    def getListOfAllPartitions(self):
         return self.__listOfAllPartitions
 
 
