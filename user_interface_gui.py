@@ -15,8 +15,7 @@ class interface :
         self.add_hole_b.grid(row=1,columnspan=2)
         self.ok = Button(self.f, text=" run ", command=self.run)
         self.ok.grid(row=3, columnspan=2)
-        self.reset_b = Button(master, text=" reset ", command=self.reset)
-        self.reset_b.pack(side=BOTTOM)
+
 
 
     def add_hole(self):
@@ -54,5 +53,5 @@ class interface :
         r=running(self.f2,self.mm)
 
 
-    def reset(self): pass
+
 
