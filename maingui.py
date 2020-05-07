@@ -1,6 +1,7 @@
 from tkinter import *
 from user_interface_gui import interface
 root=Tk()
+root.title("Memory Manger")
 f=Frame(root)
 f.pack()
 i=interface(f)
@@ -11,6 +12,6 @@ def reset():
     f = Frame(root)
     f.pack()
     i = interface(f)
-reset_b = Button(root, text=" reset ", command=reset)
+reset_b = Button(root, text=" Reset ", command=reset,width=5 , height= 1,font="arial 12 italic")
 reset_b.pack(side=BOTTOM)
 root.mainloop()
