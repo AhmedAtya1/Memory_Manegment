@@ -95,10 +95,10 @@ class running :
 
 
     def delete_frame_show_table(self):
-        self.add_process_b["state"] = "enabled"
-        self.del_process_b["state"] = "enabled"
-        self.allocate_binding["state"] = "enabled"
-        self.table_b["state"] = "enabled"
+        self.add_process_b["state"] = "active"
+        self.del_process_b["state"] = "active"
+        self.allocate_binding["state"] = "active"
+        self.table_b["state"] = "active"
         self.table_frame.pack_forget()
         self.table_frame.destroy()
         self.table = table()
@@ -114,16 +114,18 @@ class running :
         self.del_process_frame.grid(row=1)
         process_no = Label(self.del_process_frame, text=" Enter Segment name ")
         process_no.grid(row=1, column=0)
-        ok_button = Button(self.del_process_frame, text="OK", command=self.delete_frame_update_memDiagram())
+        ok_button = Button(self.del_process_frame, text="OK", command=self.delete_frame_update_memDiagram)
         ok_button.grid(row=2, column=3)
         self.enter_process_for_delete = Entry(self.del_process_frame)
         self.enter_process_for_delete.grid(row=1, column=1)
 
     def delete_frame_update_memDiagram(self):
-        self.add_process_b["state"] = "enabled"
-        self.del_process_b["state"] = "enabled"
-        self.allocate_binding["state"] = "enabled"
-        self.table_b["state"] = "enabled"
+        self.add_process_b["state"] = "active"
+        self.del_process_b["state"] = "active"
+        self.allocate_binding["state"] = "active"
+        self.table_b["state"] = "active"
+        self.del_process_frame.pack_forget()
+        self.del_process_frame.destroy()
         # m7mod hydeny fn a3ml beha de allocation
 
 
