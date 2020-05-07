@@ -3,24 +3,27 @@ import tkinter.messagebox
 from DisplayMem import displayMem
 from MemoryManager import memoryManager
 from Table import table
+from MemoryManager import memoryManager
 class running :
-    def __init__(self, master):
+    def __init__(self, master,mm):
         self.left_frame=Frame(master)
         self.mem_frame=Frame(master)
         self.left_frame.pack(side=LEFT)
         self.mem_frame.pack(side=RIGHT)
-        self.add_process_b = Button(self.left_frame, text=" allocate new process ", command=self.add_process)
+        space=Label(self.left_frame,text="\t \t \t ")
+        space.grid(row=0,column=4)
+        self.add_process_b = Button(self.left_frame, text=" Allocate New Process ",font="arial 15 italic",width=18 , height= 2, command=self.add_process)
         self.add_process_b.grid(row=0, column=0)
-        self.del_process_b = Button(self.left_frame, text=" deallocate process ", command=self.del_process)
+        self.del_process_b = Button(self.left_frame, text=" Deallocate Process ",font="arial 15 italic",width=15 , height= 2, command=self.del_process)
         self.del_process_b.grid(row=0, column=1)
-        self.table_b = Button(self.left_frame, text=" table ", command=self.show_table)
+        self.table_b = Button(self.left_frame, text=" Table ",font="arial 15 italic",width=10 , height= 2, command=self.show_table)
         self.table_b.grid(row=0, column=2)
-        self.allocate_binding = Button(self.left_frame, text="  Allocate Binding Process ", command=self.binding)
+        self.allocate_binding = Button(self.left_frame, text="  Allocate Binding Process ",font="arial 15 italic",width=20 , height= 2, command=self.binding)
         self.allocate_binding.grid(row=0, column=3)
         self.allocate_binding["state"] = "disabled"
-        #mem=displayMem()
-        #manger=memoryManager()
-        #mem.drawMem(self.mem_frame,manger.getList())
+        mem=displayMem()
+        mem.drawMem(self.mem_frame,mm.getListOfAllPartitions())
+
 
 
 
@@ -65,8 +68,8 @@ class running :
 
         else :
             # send process
-            full_flag = TRUE
-            if full_flag == FALSE :
+            self.full_flag = TRUE
+            if self.full_flag == FALSE :
                 # drawmem
                 pass
             else :
@@ -149,8 +152,8 @@ class running :
 
     def binding(self):
         # call 7oda bind func
-        full_flag = FALSE
-        if full_flag == FALSE:
+        self.full_flag = FALSE
+        if self.full_flag == FALSE:
             # drawmem
             self.add_process_b["state"] = "normal"
             self.allocate_binding["state"] = "disabled"
