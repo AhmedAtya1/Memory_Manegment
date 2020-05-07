@@ -46,9 +46,9 @@ class running :
         self.no_of_segment_b.grid(row=2, columnspan=2)
 
     def fill_process(self):
-        num_of_seg=int(self.no_of_segment_entry.get())
+        self.num_of_seg=int(self.no_of_segment_entry.get())
         firstorbest=self.fb_entry.get()
-        self.mm.setSegmentsAndAlgorithms(num_of_seg, firstorbest)
+        self.mm.setSegmentsAndAlgorithms(self.num_of_seg, firstorbest)
         self.process_frame.pack_forget()
         self.process_frame.destroy()
         self.startseg()
