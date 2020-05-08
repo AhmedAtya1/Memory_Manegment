@@ -171,11 +171,13 @@ class memoryManager:
                     #self.print()
                     #print(i)
                     #print(len(self.__listOfAllPartitions))
+
                     a=i+1
                     if a==len(self.__listOfAllPartitions):
                         break
+
             i+=1
-            if i == (len(self.__listOfAllPartitions)):
+            if i >= (len(self.__listOfAllPartitions))-1:
                     break
 
     def addBinding(self):

@@ -16,6 +16,11 @@ print(A.addProcess())
 A.deAllocate('Old Process 2')
 print(A.addBinding())
 A.deAllocate('Old Process 3')
+print(A.addBinding())
+A.deAllocate('Old Process 0')
+print(A.addBinding())
+
+
 
 
 
