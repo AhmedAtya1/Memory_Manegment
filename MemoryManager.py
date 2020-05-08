@@ -175,8 +175,10 @@ class memoryManager:
         return self.addProcess()
 
     def getTableData(self,name):
-        for i in range(len(self.__listOfAllPartitions)-1):
-            d=1
+        for i in range(len(self.__listOfAllProcesses)-1):
+            if self.__listOfAllProcesses[i].getName()==name:
+                return self.__listOfAllProcesses[i].getListOfSegments()
+
 
 
     def print(self):
