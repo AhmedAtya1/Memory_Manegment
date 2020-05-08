@@ -132,7 +132,7 @@ class memoryManager:
                 break
     def deAllocate(self,name):
         self.replaceWithHoles(name)
-        self.mergeHoles()
+        #self.mergeHoles()
         #self.printList(self.__listOfHoles)
 
     def replaceWithHoles(self,name):
@@ -163,9 +163,16 @@ class memoryManager:
                     self.__listOfHoles.append(newHole)
                     self.__listOfAllPartitions.append(newHole)
                     self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
+                    if (i+1)==len(self.__listOfAllPartitions):
+                        break
                     #self.print()
     def addBinding(self):
         return self.addProcess()
+
+    def getTableData(self,name):
+        for i in range(len(self.__listOfAllPartitions)-1):
+            d=1
+
 
     def print(self):
         self.printList(self.__listOfAllPartitions)
