@@ -16,18 +16,18 @@ class table():
                 x = x + 1
             else:
                 x = x + (i.getEndingAddress() - i.getStartingAddress())
-        self.draw(Master, 0, 1, "Size")
+        self.draw(Master, 0, 1, "Start")
         x = 1
         for i in List_of_Sigments:
-            self.draw(Master, int(x), 1, i.getSize())
+            self.draw(Master, int(x), 1, i.getStartingAddress())
             if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
                 x = x + 1
             else:
                 x = x + (i.getEndingAddress() - i.getStartingAddress())
-        self.draw(Master, 0, 2, "Start")
+        self.draw(Master, 0, 2, "Size")
         x = 1
         for i in List_of_Sigments:
-            self.draw(Master, int(x), 2, i.getStartingAddress())
+            self.draw(Master, int(x), 2, i.getSize())
             if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
                 x = x + 1
             else:

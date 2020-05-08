@@ -116,11 +116,12 @@ class running :
         self.table_b["state"] = "normal"
         if self.full_flag == True:  self.allocate_binding["state"] = "normal"
         process_namee=self.enter_process_forTable.get()
-        # self.table = table()
-        # table.drawTable(listofsegments_of_certainProcess)    self.enter_process_forTable.segmentlist
-        # show the table (missing object)
+        list_of_segmentss=self.mm.getTableData(process_namee)
+        self.table=table()
         self.table_frame.pack_forget()
         self.table_frame.destroy()
+        self.table.drawTable(list_of_segmentss)
+
 
     def del_process(self):
         self.add_process_b["state"] = "disabled"
