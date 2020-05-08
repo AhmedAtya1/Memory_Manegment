@@ -142,15 +142,24 @@ class running :
         self.table_b["state"] = "normal"
         if self.full_flag == True:  self.allocate_binding["state"] = "normal"
         process_namee = self.enter_process_for_delete.get()
-        # m7mod hydeny fn a3ml beha de allocation
+        self.mm.deAllocate(process_namee)
         self.del_process_frame.pack_forget()
         self.del_process_frame.destroy()
+        self.mem_frame.pack_forget()
+        self.mem_frame.destroy()
+        self.mem_frame = Frame(self.master)
+        self.mem_frame.pack(side=RIGHT)
+        self.mem.drawMem(self.mem_frame, self.mm.getListOfAllPartitions())
 
     def binding(self):
-        # call 7oda bind func
+        self.mm.addBinding()
         self.full_flag = False
         if self.full_flag == False:
-            # drawmem
+            self.mem_frame.pack_forget()
+            self.mem_frame.destroy()
+            self.mem_frame = Frame(self.master)
+            self.mem_frame.pack(side=RIGHT)
+            self.mem.drawMem(self.mem_frame, self.mm.getListOfAllPartitions())
             self.add_process_b["state"] = "normal"
             self.allocate_binding["state"] = "disabled"
         else:
