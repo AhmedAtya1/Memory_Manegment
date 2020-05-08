@@ -168,7 +168,7 @@ class memoryManager:
                     self.__listOfHoles.append(newHole)
                     self.__listOfAllPartitions.append(newHole)
                     self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
-                    self.print()
+                    #self.print()
                     #print(i)
                     #print(len(self.__listOfAllPartitions))
                     a=i+1
