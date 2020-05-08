@@ -153,7 +153,7 @@ class running :
         self.mem.drawMem(self.mem_frame, self.mm.getListOfAllPartitions())
 
     def binding(self):
-        self.mm.addBinding()
+        self.full_flag =not(self.mm.addBinding())
         if self.full_flag == False:
             self.mem_frame.pack_forget()
             self.mem_frame.destroy()
