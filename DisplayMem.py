@@ -2,6 +2,11 @@ from tkinter import  *
 from math import *
 
 class displayMem:
+    def check_int(self,number):
+        if int(number) == number:
+            return int(number)
+        else:
+            return number
 
     def reshape(self,number):
        if number !=0:
@@ -26,7 +31,7 @@ class displayMem:
         canvas.pack(side=RIGHT)
         x = 0
         for i in List_of_Sigments:
-            s = i.getName() + " " + " ( "+str(i.getStartingAddress())+" : " + str(i.getEndingAddress()) + " )"
+            s = i.getName() + " " + " ( "+str(self.check_int(i.getStartingAddress()))+" : " + str(self.check_int(i.getEndingAddress())) + " )"
             if i.getName() == "Hole":
                 e = Label(frame, text=s, borderwidth=1, relief="solid", width=25, height=2 + self.reshape(i.getSize()),
                           bg="white", font="arial 10 italic")
