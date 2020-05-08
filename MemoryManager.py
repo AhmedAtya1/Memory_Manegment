@@ -149,8 +149,7 @@ class memoryManager:
     def mergeHoles(self):
         i=0
         while len(self.__listOfAllPartitions) > 1:
-            if i == (len(self.__listOfAllPartitions) - 1):
-                    break
+
 
             if self.__listOfAllPartitions[i].getName()=='Hole':
                 while self.__listOfAllPartitions[i+1].getName()=='Hole':
@@ -166,9 +165,12 @@ class memoryManager:
                     self.__listOfHoles.append(newHole)
                     self.__listOfAllPartitions.append(newHole)
                     self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
+                    #self.print()
+
                     if (i+1)==len(self.__listOfAllPartitions):
                         break
-                    #self.print()
+            if i == (len(self.__listOfAllPartitions) - 1):
+                    break
 
             i+=1
     def addBinding(self):

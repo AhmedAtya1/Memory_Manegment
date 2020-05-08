@@ -1,13 +1,13 @@
 from MemoryManager import memoryManager
 A=memoryManager()
 A.setSize(100)
+A.addHole(5,45)
 A.divideMem()
-A.deAllocate('Old Process 0')
-A.setSegmentsAndAlgorithms(2,'bestFit')
-A.addSegment('code',10)
-A.addSegment('main',20)
-A.addProcess()
-A.deAllocate('P0')
+A.deAllocate('Old Process 1')
+
+
+
+
 #A.printList(A.getTableData('P0'))
 
 #A.addHole(75,7)
