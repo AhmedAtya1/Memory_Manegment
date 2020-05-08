@@ -9,10 +9,15 @@ class displayMem:
             return number
 
     def reshape(self,number):
-       if number !=0:
-        number=int(number)
-        number=abs(number)
-        return int (log(number,2))
+        if number >=2:
+            number=int(number)
+            number=abs(number)
+            return int (log(number,2))
+        else:
+            return int(log(2, 2))
+
+
+
 
 
     def drawMem(self,Master,List_of_Sigments=[]):

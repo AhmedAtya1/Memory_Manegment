@@ -1,5 +1,10 @@
 from tkinter import  *
 class table():
+    def check_int(self,number):
+        if int(number) == number:
+            return int(number)
+        else:
+            return number
     def draw (self,master,row,column,text="",width=12):
         s = text
         e = Label(master, text=s, borderwidth=1, relief="solid", width=width, height=2,
@@ -19,7 +24,7 @@ class table():
         self.draw(Master, 0, 1, "Start")
         x = 1
         for i in List_of_Sigments:
-            self.draw(Master, int(x), 1, i.getStartingAddress())
+            self.draw(Master, int(x), 1, self.check_int(i.getStartingAddress()))
             if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
                 x = x + 1
             else:
@@ -27,7 +32,7 @@ class table():
         self.draw(Master, 0, 2, "Size")
         x = 1
         for i in List_of_Sigments:
-            self.draw(Master, int(x), 2, i.getSize())
+            self.draw(Master, int(x), 2, self.check_int(i.getSize()))
             if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
                 x = x + 1
             else:
