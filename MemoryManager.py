@@ -22,23 +22,26 @@ class memoryManager:
     def setSize(self,size):
         self.__memorySize=size
     def addHole(self,startingAddress,size):
-        newSeg=segment('Hole','none',len(self.__listOfHoles),'Hole',startingAddress,size,startingAddress+size-1)
+        newSeg=segment('Hole','none',len(self.__listOfHoles),'Hole',startingAddress,size,startingAddress+size)
         self.__listOfHoles.append(newSeg)
     def displayOldProcess(self,startingAddress,size):
         name='Old Process'+' '+str(self.__oldProcessesNo)
-        newSeg=segment(name,name,len(self.__listOfHoles),'Old Process',startingAddress,size,startingAddress+size-1)
+        newSeg=segment(name,name,len(self.__listOfHoles),'Old Process',startingAddress,size,startingAddress+size)
         self.__listOfAllPartitions.append(newSeg)
         self.__oldProcessesNo+=1
     def divideMem(self):
+        if len(self.__listOfHoles)==0:
+            self.displayOldProcess(self.__lastAddressFlag,self.__memorySize)
+            return
         self.__listOfHoles.sort(key=operator.attrgetter('_segment__startAddress'))
         for i in range(len(self.__listOfHoles)):
             if self.__listOfHoles[i].getStartingAddress()==self.__lastAddressFlag:
                 self.__listOfAllPartitions.append(self.__listOfHoles[i])
-                self.__lastAddressFlag=self.__listOfHoles[i].getEndingAddress()+1
+                self.__lastAddressFlag=self.__listOfHoles[i].getEndingAddress()
             else:
                 self.displayOldProcess(self.__lastAddressFlag,self.__listOfHoles[i].getStartingAddress()-self.__lastAddressFlag)
                 self.__listOfAllPartitions.append(self.__listOfHoles[i])
-                self.__lastAddressFlag=self.__listOfHoles[i].getEndingAddress()+1
+                self.__lastAddressFlag=self.__listOfHoles[i].getEndingAddress()
         if self.__lastAddressFlag!=self.__memorySize:
             self.displayOldProcess(self.__lastAddressFlag,self.__memorySize - self.__lastAddressFlag)
 
@@ -108,10 +111,10 @@ class memoryManager:
                 for j in range(len(self.__listOfHoles)):
                     if currentListOfSeg[i].getSize() < self.__listOfHoles[j].getSize():
                         currentListOfSeg[i].setStartingAddress(self.__listOfHoles[j].getStartingAddress())
-                        currentListOfSeg[i].setEndingAddress(currentListOfSeg[i].getStartingAddress()+currentListOfSeg[i].getSize()-1)
+                        currentListOfSeg[i].setEndingAddress(currentListOfSeg[i].getStartingAddress()+currentListOfSeg[i].getSize())
                         self.__listOfAllPartitions.append(currentListOfSeg[i])
-                        self.__listOfHoles[j].setStartingAddress(currentListOfSeg[i].getStartingAddress()+currentListOfSeg[i].getSize())
-                        self.__listOfHoles[j].setSize(self.__listOfHoles[j].getEndingAddress()-self.__listOfHoles[j].getStartingAddress()+1)
+                        self.__listOfHoles[j].setStartingAddress(currentListOfSeg[i].getEndingAddress())
+                        self.__listOfHoles[j].setSize(self.__listOfHoles[j].getEndingAddress()-self.__listOfHoles[j].getStartingAddress())
                         break
                     elif currentListOfSeg[i].getSize() == self.__listOfHoles[j].getSize():
                         currentListOfSeg[i].setStartingAddress(self.__listOfHoles[j].getStartingAddress())
@@ -169,10 +172,10 @@ class memoryManager:
 
                     if (i+1)==len(self.__listOfAllPartitions):
                         break
+            i+=1
             if i == (len(self.__listOfAllPartitions) - 1):
                     break
 
-            i+=1
     def addBinding(self):
         return self.addProcess()
 

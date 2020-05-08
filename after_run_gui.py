@@ -90,7 +90,7 @@ class running :
 
     def str_seg(self):
         name_of_seg = self.segs_name_entry.get()
-        size_of_seg = int(self.segs_sizee_entry.get())
+        size_of_seg = float(self.segs_sizee_entry.get())  #segment size
         self.mm.addSegment(name_of_seg,size_of_seg)
         self.segs_frame.pack_forget()
         self.segs_frame.destroy()
