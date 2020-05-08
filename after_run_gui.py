@@ -154,7 +154,6 @@ class running :
 
     def binding(self):
         self.mm.addBinding()
-        self.full_flag = False
         if self.full_flag == False:
             self.mem_frame.pack_forget()
             self.mem_frame.destroy()
