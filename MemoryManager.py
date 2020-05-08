@@ -22,11 +22,11 @@ class memoryManager:
     def setSize(self,size):
         self.__memorySize=size
     def addHole(self,startingAddress,size):
-        newSeg=segment('hole','none',len(self.__listOfHoles),'hole',startingAddress,size,startingAddress+size-1)
+        newSeg=segment('Hole','none',len(self.__listOfHoles),'Hole',startingAddress,size,startingAddress+size-1)
         self.__listOfHoles.append(newSeg)
     def displayOldProcess(self,startingAddress,size):
-        name='oldProcess'+str(self.__oldProcessesNo)
-        newSeg=segment(name,name,len(self.__listOfHoles),'oldProcess',startingAddress,size,startingAddress+size-1)
+        name='Old Process'+' '+str(self.__oldProcessesNo)
+        newSeg=segment(name,name,len(self.__listOfHoles),'Old Process',startingAddress,size,startingAddress+size-1)
         self.__listOfAllPartitions.append(newSeg)
         self.__oldProcessesNo+=1
     def divideMem(self):
@@ -50,14 +50,15 @@ class memoryManager:
             self.__firstFitFlag = 1
         else:
             self.__firstFitFlag = 0
-        proc=process('p'+str(len(self.__listOfAllProcesses)),'waiting',numberOfSegments)
+        proc=process('P'+str(len(self.__listOfAllProcesses)),'waiting',numberOfSegments)
         self.__listOfAllProcesses.append(proc)
         #print(self.__firstFitFlag)
         #print(self.__listOfAllProcesses[-1].getName())
 
     def addSegment(self,name,size):
         currentProc=self.__listOfAllProcesses[-1]
-        newSeg=segment(self.__listOfAllProcesses[-1].getName()+name,currentProc.getName(),currentProc.getNoOfAddedSegments(),'segment',-1,size,-1)
+        newName=self.__listOfAllProcesses[-1].getName()+' '+name
+        newSeg=segment(newName,currentProc.getName(),currentProc.getNoOfAddedSegments(),'segment',-1,size,-1)
         currentProc.getListOfSegments().append(newSeg)
         noOfAddedSeg=currentProc.getNoOfAddedSegments()
         currentProc.setNoOfAddedSegments(noOfAddedSeg+1)
@@ -132,29 +133,31 @@ class memoryManager:
                 break
     def deAllocate(self,name):
         self.replaceWithHoles(name)
-        #self.mergeHoles()
+        self.mergeHoles()
         #self.printList(self.__listOfHoles)
 
     def replaceWithHoles(self,name):
         for i in range(len(self.__listOfAllPartitions)):
                 if self.__listOfAllPartitions[i].getRelatedProcess()==name:
-                    self.__listOfAllPartitions[i].setName('hole')
+                    self.__listOfAllPartitions[i].setName('Hole')
                     self.__listOfAllPartitions[i].setRelatedProcess('none')
-                    self.__listOfAllPartitions[i].setType('hole')
+                    self.__listOfAllPartitions[i].setType('Hole')
                     self.__listOfHoles.append(self.__listOfAllPartitions[i])
 
 
 
     def mergeHoles(self):
-        for i in range(len(self.__listOfAllPartitions)-1):
-            if i==(len(self.__listOfAllPartitions)-1):
-                break
-            if self.__listOfAllPartitions[i].getName()=='hole':
-                while self.__listOfAllPartitions[i+1].getName()=='hole':
+        i=0
+        while len(self.__listOfAllPartitions) > 1:
+            if i == (len(self.__listOfAllPartitions) - 1):
+                    break
+
+            if self.__listOfAllPartitions[i].getName()=='Hole':
+                while self.__listOfAllPartitions[i+1].getName()=='Hole':
                     start=self.__listOfAllPartitions[i].getStartingAddress()
                     end=self.__listOfAllPartitions[i+1].getEndingAddress()
                     size=self.__listOfAllPartitions[i].getSize()+self.__listOfAllPartitions[i+1].getSize()
-                    newHole=segment('hole','none',-1,'hole',start,size,end)
+                    newHole=segment('Hole','none',-1,'Hole',start,size,end)
                     secondStart=self.__listOfAllPartitions[i+1].getStartingAddress()
                     self.removeSegment(start,self.__listOfAllPartitions)
                     self.removeSegment(start,self.__listOfHoles)
@@ -166,6 +169,8 @@ class memoryManager:
                     if (i+1)==len(self.__listOfAllPartitions):
                         break
                     #self.print()
+
+            i+=1
     def addBinding(self):
         return self.addProcess()
 
