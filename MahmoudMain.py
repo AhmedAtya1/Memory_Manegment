@@ -1,24 +1,19 @@
 from MemoryManager import memoryManager
 A=memoryManager()
 A.setSize(100.5)
-A.addHole(0,0.5)
-A.addHole(10,10.5)
-A.addHole(50,5.5)
-A.addHole(90,9.5)
+A.addHole(0,100.5)
 A.divideMem()
 A.setSegmentsAndAlgorithms(1,'bestFit')
 A.addSegment('code',5.5)
 print(A.addProcess())
-A.deAllocate('Old Process 1')
-A.setSegmentsAndAlgorithms(1,'firstFit')
-A.addSegment('code',50)
+A.setSegmentsAndAlgorithms(1,1)
+A.addSegment('code',5.5)
 print(A.addProcess())
-A.deAllocate('Old Process 2')
-print(A.addBinding())
-A.deAllocate('Old Process 3')
-print(A.addBinding())
-A.deAllocate('Old Process 0')
-print(A.addBinding())
+A.setSegmentsAndAlgorithms(1,1)
+A.addSegment('Old Process 1',5.5)
+print(A.addProcess())
+A.deAllocate('P2')
+
 
 
 

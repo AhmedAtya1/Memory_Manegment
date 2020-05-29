@@ -1,20 +1,14 @@
-from Segment import segment
+from Partition import partition
 from Process import process
 import operator
 
 class memoryManager:
-    #memory class may be deleted
     def __init__(self):
         self.__memorySize = 0
         self.__listOfHoles = []
-        self.__listOfOldProcesses = []
         self.__listOfAllProcesses=[]
-        self.__listOfAllocatedProcesses=[]
-        self.__listOfWaitingProcesses=[]
         self.__listOfAllPartitions = []
-        self.__partitionsNo = 0
-        self.__holesNo = 0
-        self.__oldProcessesNo = 0  #may be taken from list size
+        self.__oldProcessesNo = 0
         self.__lastAddressFlag=0
         self.__firstFitFlag=-1
 
@@ -22,18 +16,18 @@ class memoryManager:
     def setSize(self,size):
         self.__memorySize=size
     def addHole(self,startingAddress,size):
-        newSeg=segment('Hole','none',len(self.__listOfHoles),'Hole',startingAddress,size,startingAddress+size)
+        newSeg=partition('Hole', 'none', len(self.__listOfHoles), 'Hole', startingAddress, size, startingAddress + size)
         self.__listOfHoles.append(newSeg)
     def displayOldProcess(self,startingAddress,size):
         name='Old Process'+' '+str(self.__oldProcessesNo)
-        newSeg=segment(name,name,len(self.__listOfHoles),'Old Process',startingAddress,size,startingAddress+size)
+        newSeg=partition(name, name, len(self.__listOfHoles), 'Old Process', startingAddress, size, startingAddress + size)
         self.__listOfAllPartitions.append(newSeg)
         self.__oldProcessesNo+=1
     def divideMem(self):
         if len(self.__listOfHoles)==0:
             self.displayOldProcess(self.__lastAddressFlag,self.__memorySize)
             return
-        self.__listOfHoles.sort(key=operator.attrgetter('_segment__startAddress'))
+        self.__listOfHoles.sort(key=operator.attrgetter('_partition__startAddress'))
         for i in range(len(self.__listOfHoles)):
             if self.__listOfHoles[i].getStartingAddress()==self.__lastAddressFlag:
                 self.__listOfAllPartitions.append(self.__listOfHoles[i])
@@ -55,24 +49,20 @@ class memoryManager:
             self.__firstFitFlag = 0
         proc=process('P'+str(len(self.__listOfAllProcesses)),'waiting',numberOfSegments)
         self.__listOfAllProcesses.append(proc)
-        #print(self.__firstFitFlag)
-        #print(self.__listOfAllProcesses[-1].getName())
 
     def addSegment(self,name,size):
         currentProc=self.__listOfAllProcesses[-1]
         newName=self.__listOfAllProcesses[-1].getName()+' '+name
-        newSeg=segment(newName,currentProc.getName(),currentProc.getNoOfAddedSegments(),'segment',-1,size,-1)
+        newSeg=partition(newName, currentProc.getName(), currentProc.getNoOfAddedSegments(), 'segment', -1, size, -1)
         currentProc.getListOfSegments().append(newSeg)
         noOfAddedSeg=currentProc.getNoOfAddedSegments()
         currentProc.setNoOfAddedSegments(noOfAddedSeg+1)
-        #print(self.__listOfAllProcesses[-1].getListOfSegments()[-1].getName())
 
 
     def checkIfFitted(self):
         listOfHoleSizes=[]
         for i in range(len(self.__listOfHoles)):
             listOfHoleSizes.append(self.__listOfHoles[i].getSize())
-            #print(listOfHoleSizes[i])
         currentListOfSeg = self.__listOfAllProcesses[-1].getListOfSegments()
         for i in range(len(currentListOfSeg)):
             for j in range(len(listOfHoleSizes)):
@@ -92,16 +82,12 @@ class memoryManager:
 
     def addProcess(self):
         if  self.__firstFitFlag==1:
-            self.__listOfHoles.sort(key=operator.attrgetter('_segment__startAddress'))
+            self.__listOfHoles.sort(key=operator.attrgetter('_partition__startAddress'))
         else:
-            self.__listOfHoles.sort(key=operator.attrgetter('_segment__startAddress'))
-            self.__listOfHoles.sort(key=operator.attrgetter('_segment__size'))
-            #print(self.__listOfHoles[0].getSize())
-            #print(self.__listOfHoles[1].getSize())
-            #print(self.__listOfHoles[2].getSize())
+            self.__listOfHoles.sort(key=operator.attrgetter('_partition__startAddress'))
+            self.__listOfHoles.sort(key=operator.attrgetter('_partition__size'))
 
         if self.checkIfFitted()==False:
-            #print(11)
             return False
 
 
@@ -123,7 +109,7 @@ class memoryManager:
                         self.removeSegment(self.__listOfHoles[j].getStartingAddress(),self.__listOfAllPartitions)
                         del self.__listOfHoles[j]
                         break
-            self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
+            self.__listOfAllPartitions.sort(key=operator.attrgetter('_partition__startAddress'))
             return True
 
 
@@ -137,7 +123,6 @@ class memoryManager:
     def deAllocate(self,name):
         self.replaceWithHoles(name)
         self.mergeHoles()
-        #self.printList(self.__listOfHoles)
 
     def replaceWithHoles(self,name):
         for i in range(len(self.__listOfAllPartitions)):
@@ -159,7 +144,7 @@ class memoryManager:
                     start=self.__listOfAllPartitions[i].getStartingAddress()
                     end=self.__listOfAllPartitions[i+1].getEndingAddress()
                     size=self.__listOfAllPartitions[i].getSize()+self.__listOfAllPartitions[i+1].getSize()
-                    newHole=segment('Hole','none',-1,'Hole',start,size,end)
+                    newHole=partition('Hole', 'none', -1, 'Hole', start, size, end)
                     secondStart=self.__listOfAllPartitions[i+1].getStartingAddress()
                     self.removeSegment(start,self.__listOfAllPartitions)
                     self.removeSegment(start,self.__listOfHoles)
@@ -167,10 +152,7 @@ class memoryManager:
                     self.removeSegment(secondStart, self.__listOfHoles)
                     self.__listOfHoles.append(newHole)
                     self.__listOfAllPartitions.append(newHole)
-                    self.__listOfAllPartitions.sort(key=operator.attrgetter('_segment__startAddress'))
-                    #self.print()
-                    #print(i)
-                    #print(len(self.__listOfAllPartitions))
+                    self.__listOfAllPartitions.sort(key=operator.attrgetter('_partition__startAddress'))
 
                     a=i+1
                     if a==len(self.__listOfAllPartitions):
@@ -187,7 +169,9 @@ class memoryManager:
         for i in range(len(self.__listOfAllProcesses)):
             if self.__listOfAllProcesses[i].getName()==name:
                 list=self.__listOfAllProcesses[i].getListOfSegments()
-                return list
+                if list[0].getName()!='Hole':
+                    return list
+        return []
 
 
 

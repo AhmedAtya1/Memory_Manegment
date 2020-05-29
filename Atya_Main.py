@@ -1,5 +1,5 @@
 from tkinter import *
-from Segment import segment
+from Partition import partition
 from MemoryManager import memoryManager
 from DisplayMem import displayMem
 from Process import process
@@ -7,7 +7,7 @@ from Table import table
 x=Tk()
 list_segments=[]
 for i in range(10):
-    a=segment()
+    a=partition()
     a.setName("seg"+str(i))
     a.setSize(i+1)
     list_segments.append(a)
