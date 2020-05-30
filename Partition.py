@@ -8,6 +8,8 @@ class partition :
         self.__size=size
         self.__endAddress=endAddress
         self.__state='none'
+    def getNum(self):
+        return self.__number
     def setName(self,name):
         self.__name = name
     def getName(self):

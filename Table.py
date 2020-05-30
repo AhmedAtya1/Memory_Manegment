@@ -14,25 +14,33 @@ class table():
     def drawTable(self, List_of_Sigments=[]):
         Master = Tk()
         x = 1
-        self.draw(Master,0,0,"Segments",17)
+        self.draw(Master, 0, 0, "Segement Number", 22)
         for i in List_of_Sigments:
-            self.draw(Master, int(x), 0, i.getName(),17)
+            self.draw(Master, int(x), 0, i.getNum(), 22)
             if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
                 x = x + 1
             else:
                 x = x + (i.getEndingAddress() - i.getStartingAddress())
-        self.draw(Master, 0, 1, "Start")
         x = 1
+        self.draw(Master,0,1,"Segment Name",22)
         for i in List_of_Sigments:
-            self.draw(Master, int(x), 1, self.check_int(i.getStartingAddress()))
+            self.draw(Master, int(x), 1, i.getName(),22)
             if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
                 x = x + 1
             else:
                 x = x + (i.getEndingAddress() - i.getStartingAddress())
-        self.draw(Master, 0, 2, "Size")
+        self.draw(Master, 0, 2, "Base")
         x = 1
         for i in List_of_Sigments:
-            self.draw(Master, int(x), 2, self.check_int(i.getSize()))
+            self.draw(Master, int(x), 2, self.check_int(i.getStartingAddress()))
+            if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
+                x = x + 1
+            else:
+                x = x + (i.getEndingAddress() - i.getStartingAddress())
+        self.draw(Master, 0, 3, "Limit")
+        x = 1
+        for i in List_of_Sigments:
+            self.draw(Master, int(x), 3, self.check_int(i.getSize()))
             if x == int(x + (i.getEndingAddress() - i.getStartingAddress())):
                 x = x + 1
             else:
